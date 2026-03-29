@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 public/assets/*.mp3
 public/assets/*.wav
+public/assets/*.mp3
+public/assets/*.wav

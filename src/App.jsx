@@ -79,8 +79,8 @@ const STAR_DOTS = [
 ];
 
 function HeroScene({ background = 'haciendo la valla', height = 180 }) {
-  const bgImage = background === 'haciendo la valla' ? '/assets/bg_concert.png'
-    : background === 'durmiendo la calle' ? '/assets/bg_arena_day.png'
+  const bgImage = background === 'haciendo la valla' ? '/assets/bg_arena_day.png'
+    : background === 'durmiendo la calle' ? '/assets/bg_concert.png'
     : background === 'partiendo en el hotel' ? '/assets/bg_hotel.png'
     : null;
 
@@ -100,7 +100,7 @@ function HeroScene({ background = 'haciendo la valla', height = 180 }) {
     <div style={{ position: 'relative', width: '100%', height, overflow: 'hidden', flexShrink: 0 }}>
       {/* Base background */}
       {bgImage
-        ? <img src={bgImage} alt="" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
+        ? <img src={bgImage} alt="" onError={(e) => { e.target.style.display='none'; }} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
         : <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: '#050510', zIndex: 0 }} />
       }
 
@@ -154,7 +154,7 @@ function HeroScene({ background = 'haciendo la valla', height = 180 }) {
 function RelaxScene() {
   return (
     <div style={{ position: 'relative', width: '100%', height: 160, overflow: 'hidden', flexShrink: 0 }}>
-      <img src="/assets/bg_arena_night.png" alt="" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
+      <img src="/assets/bg_arena_night.png" alt="" onError={(e) => { e.target.style.display='none'; }} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 0 }} />
       <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 5 }}>
         {STAR_DOTS.map((s, i) => (
           <circle key={i} cx={s.cx} cy={s.cy} r={2} fill={i % 2 === 0 ? '#ffffff' : '#f5c842'}
@@ -162,13 +162,13 @@ function RelaxScene() {
         ))}
       </svg>
       {/* Tent left side */}
-      <img src="/assets/tent.png" alt="" style={{
+      <img src="/assets/tent.png" alt="" onError={(e) => { e.target.style.display='none'; }} style={{
         position: 'absolute', bottom: 0, left: '5%', height: 65,
         imageRendering: 'pixelated', pointerEvents: 'none', zIndex: 6,
         animation: 'sway 3s ease-in-out infinite', transformOrigin: 'bottom center',
       }} />
       {/* Fire in front of tent */}
-      <img src="/assets/fire.gif" alt="" style={{
+      <img src="/assets/fire.gif" alt="" onError={(e) => { e.target.style.display='none'; }} style={{
         position: 'absolute', bottom: 5, left: '18%', height: 48,
         imageRendering: 'pixelated', pointerEvents: 'none', zIndex: 7,
       }} />
