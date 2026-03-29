@@ -78,9 +78,10 @@ const STAR_DOTS = [
   {cx:'89%',cy:'16%',d:'1.7s',dur:'1.9s'},
 ];
 
+// FIX 1: fondos corregidos — haciendo la valla = bg_concert (cola afuera), durmiendo la calle = bg_arena_day
 function HeroScene({ background = 'haciendo la valla', height = 180 }) {
-  const bgImage = background === 'haciendo la valla' ? '/assets/bg_arena_day.png'
-    : background === 'durmiendo la calle' ? '/assets/bg_concert.png'
+  const bgImage = background === 'haciendo la valla' ? '/assets/bg_concert.png'
+    : background === 'durmiendo la calle' ? '/assets/bg_arena_day.png'
     : background === 'partiendo en el hotel' ? '/assets/bg_hotel.png'
     : null;
 
@@ -276,7 +277,6 @@ const LOADING_MSGS = [
 ];
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
-// FIX 1: date is July 5 2018, accurate calculation
 function timeSince(dateStr) {
   const from = new Date(dateStr);
   const now = new Date();
@@ -324,7 +324,6 @@ function OnboardingScreen({ onDone }) {
       <div style={{ fontSize: 32, color: C.yellow, fontWeight: 'bold', letterSpacing: 2, marginBottom: 8 }}>¿quién sos?</div>
       <div style={{ color: C.muted, fontSize: 11, marginBottom: 28 }}>elegí tu personaje</div>
 
-      {/* PNG avatars in character cards */}
       <div style={{ display: 'flex', gap: 16, marginBottom: 20, width: '100%', justifyContent: 'center' }}>
         {[
           { name: 'Frida', src: FRIDA_IMG, delay: '0s' },
@@ -379,7 +378,6 @@ function HomeScreen({ user, onNav, onGenerateFromSuggestion, lastStory, onUserCh
 
   return (
     <div style={{ ...S.screen, padding: 0, paddingBottom: 100 }}>
-      {/* Hero scene with palette overlay */}
       <div style={{ position: 'relative', flexShrink: 0 }}>
         <HeroScene background={background} height={180} />
         <button onClick={() => setShowPicker(p => !p)}
@@ -394,7 +392,6 @@ function HomeScreen({ user, onNav, onGenerateFromSuggestion, lastStory, onUserCh
       </div>
 
       <div style={{ padding: '16px 16px 0' }}>
-        {/* Greeting + cambiar usuario */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
           <div style={{ fontSize: 20, color: C.yellow, fontWeight: 'bold' }}>{greeting}</div>
           <button onClick={onUserChange}
@@ -461,7 +458,6 @@ function GeneratorScreen({ user, onBack, onGenerate }) {
   return (
     <div style={{ ...S.screen, padding: '16px 16px 100px' }}>
       <button onClick={onBack} style={{ ...S.btnDark, alignSelf: 'flex-start', marginBottom: 20, fontSize: 12 }}>← volver</button>
-      {/* FIX 4: NUEVA HISTORIA uppercase + larger */}
       <div style={{ fontSize: 22, color: C.yellow, marginBottom: 20, fontWeight: 'bold', letterSpacing: 2 }}>NUEVA HISTORIA</div>
 
       <div style={{ fontSize: 11, color: C.muted, marginBottom: 8 }}>PROTAGONISTAS</div>
@@ -475,7 +471,6 @@ function GeneratorScreen({ user, onBack, onGenerate }) {
       <div style={{ fontSize: 11, color: C.muted, marginBottom: 8 }}>
         ARTISTAS <span style={{ color: C.orange }}>{selectedArtists.length > 0 ? `(${selectedArtists.length})` : ''}</span>
       </div>
-      {/* FIX 5: PixelFace instead of letter initials */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 6, marginBottom: 20 }}>
         {ARTISTS.map(a => (
           <div key={a.name} onClick={() => toggleArtist(a.name)}
@@ -512,7 +507,7 @@ function GeneratorScreen({ user, onBack, onGenerate }) {
   );
 }
 
-// ─── LOADING ─────────────────────────────────────────────────────────────────
+// ─── LOADING ─── FIX 4: luna pixel art centrada en lugar de estrella ──────────
 function LoadingScreen() {
   const [msgIdx, setMsgIdx] = useState(0);
   const [dots, setDots] = useState(1);
@@ -523,33 +518,56 @@ function LoadingScreen() {
   }, []);
   return (
     <div style={{ ...S.screen, alignItems: 'center', justifyContent: 'center', gap: 24 }}>
-      {/* Pixel art shooting star, pulsing */}
       <div style={{ animation: 'pulse 1.5s ease-in-out infinite', transformOrigin: 'center' }}>
-        <svg width={80} height={80} viewBox="0 0 80 80">
-          {/* Tail (fading orange) */}
-          <rect x={4} y={50} width={12} height={3} fill={C.orange} opacity={0.3} />
-          <rect x={10} y={45} width={12} height={3} fill={C.orange} opacity={0.4} />
-          <rect x={18} y={40} width={12} height={4} fill={C.orange} opacity={0.55} />
-          <rect x={28} y={34} width={12} height={5} fill={C.orange} opacity={0.7} />
-          {/* Star body (bright yellow) */}
-          <rect x={38} y={26} width={14} height={10} fill={C.yellow} />
-          <rect x={46} y={18} width={10} height={12} fill={C.yellow} />
-          <rect x={54} y={12} width={8} height={10} fill={C.yellow} />
-          {/* Star tip sparkle */}
-          <rect x={62} y={6} width={6} height={6} fill="white" opacity={0.9} />
-          <rect x={68} y={12} width={4} height={4} fill={C.yellow} opacity={0.7} />
-          {/* Surrounding sparkles */}
-          <rect x={56} y={26} width={4} height={4} fill={C.yellow} opacity={0.5} />
-          <rect x={42} y={14} width={3} height={3} fill="white" opacity={0.6} />
-          <rect x={30} y={28} width={3} height={3} fill={C.orange} opacity={0.5} />
-          <rect x={14} y={38} width={2} height={2} fill={C.yellow} opacity={0.4} />
-          <rect x={64} y={22} width={2} height={2} fill="white" opacity={0.5} />
-          <rect x={50} y={8} width={2} height={2} fill={C.yellow} opacity={0.6} />
-        </svg>
+        <img src="/assets/moon.png" alt="" style={{ width: 120, height: 120, imageRendering: 'pixelated' }} />
       </div>
       <div style={{ color: C.muted, fontSize: 13, textAlign: 'center' }}>
         {LOADING_MSGS[msgIdx]}{'.'.repeat(dots)}
       </div>
+    </div>
+  );
+}
+
+// ─── WATTPAD READER ─── FIX 3: paginado estilo Wattpad ───────────────────────
+function WattpadReader({ body, isStreaming }) {
+  const [page, setPage] = useState(0);
+
+  const pages = body
+    ? body.split(/\n{2,}/).filter(p => p.trim()).reduce((acc, para, i) => {
+        const pageIdx = Math.floor(i / 4);
+        if (!acc[pageIdx]) acc[pageIdx] = [];
+        acc[pageIdx].push(para.trim());
+        return acc;
+      }, [])
+    : [[]];
+
+  const total = pages.length;
+  const current = pages[page] || [];
+
+  return (
+    <div style={{ marginBottom: 24 }}>
+      <div style={{ background: '#0f0f0f', border: `1px solid ${C.border}`, borderRadius: 2, padding: '24px 20px', minHeight: 300, marginBottom: 16 }}>
+        {current.map((para, i) => (
+          <p key={i} style={{ fontFamily: 'Georgia, serif', fontSize: 15, lineHeight: 1.9, color: C.text, marginBottom: 18, marginTop: 0 }}>
+            {para}
+          </p>
+        ))}
+        {isStreaming && page === total - 1 && (
+          <span style={{ color: C.yellow }}>▌</span>
+        )}
+      </div>
+
+      {!isStreaming && total > 1 && (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+          <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0}
+            style={{ ...S.btnDark, fontSize: 12, opacity: page === 0 ? 0.3 : 1 }}>← anterior</button>
+          <span style={{ fontSize: 11, color: C.muted, fontFamily: "'Courier New', monospace" }}>
+            {page + 1} / {total}
+          </span>
+          <button onClick={() => setPage(p => Math.min(total - 1, p + 1))} disabled={page === total - 1}
+            style={{ ...S.btnDark, fontSize: 12, opacity: page === total - 1 ? 0.3 : 1 }}>siguiente →</button>
+        </div>
+      )}
     </div>
   );
 }
@@ -576,7 +594,6 @@ function ReaderScreen({ story, user, onBack, onSave, onNew, isStreaming }) {
     if (!story?.body) return;
     if (playing) { window.speechSynthesis.cancel(); setPlaying(false); return; }
     const u = new SpeechSynthesisUtterance(story.body);
-    // FIX 9: slower rate + warmer pitch
     u.rate = 0.82;
     u.pitch = 1.05;
     u.lang = 'es-AR';
@@ -615,7 +632,6 @@ function ReaderScreen({ story, user, onBack, onSave, onNew, isStreaming }) {
                 </div>
                 <span style={{ fontSize: 10, color: C.muted }}>{playing ? 'leyendo...' : 'listo'}</span>
               </div>
-              {/* Fix 8: restyled safari tip */}
               <div style={{ borderLeft: '3px solid #f5c842', paddingLeft: '8px', fontSize: '11px', color: '#ff6b1a', marginBottom: '8px', lineHeight: 1.5 }}>
                 🎙️ Para voces más naturales: abrí esta app en Safari desde iPhone o iPad
               </div>
@@ -627,10 +643,8 @@ function ReaderScreen({ story, user, onBack, onSave, onNew, isStreaming }) {
               )}
             </div>
 
-            <div style={{ fontFamily: 'Georgia, serif', fontSize: 15, lineHeight: 1.8, color: C.text, marginBottom: 24, whiteSpace: 'pre-wrap' }}>
-              {story.body}
-              {isStreaming && <span style={{ color: C.yellow }}>▌</span>}
-            </div>
+            {/* FIX 3: WattpadReader en lugar de texto plano */}
+            <WattpadReader body={story.body} isStreaming={isStreaming} />
 
             <div style={{ display: 'flex', gap: 8 }}>
               <button onClick={handleSave} disabled={saved || isStreaming}
@@ -826,13 +840,12 @@ function BreathScreen({ onBack }) {
   );
 }
 
-// ─── SOUNDS ──────────────────────────────────────────────────────────────────
+// ─── SOUNDS ─── FIX 2: rutas de audio sin espacios ───────────────────────────
 function SoundsScreen({ onBack }) {
   const [active, setActive] = useState({});
   const nodes = useRef({});
   const audioCtx = useRef(null);
 
-  // Web Audio context — only needed for heartbeat
   const getCtx = () => {
     if (!audioCtx.current) audioCtx.current = new (window.AudioContext || window.webkitAudioContext)();
     if (audioCtx.current.state === 'suspended') audioCtx.current.resume();
@@ -843,7 +856,7 @@ function SoundsScreen({ onBack }) {
     {
       id: 'rain', label: 'lluvia', icon: '🌧',
       gen: () => {
-        const audio = new Audio('/assets/Rain sounds.wav');
+        const audio = new Audio('/assets/rain_compressed.mp3');
         audio.loop = true;
         audio.play().catch(() => {});
         return { stop: () => { audio.pause(); audio.currentTime = 0; } };
@@ -852,7 +865,7 @@ function SoundsScreen({ onBack }) {
     {
       id: 'crowd', label: 'crowd', icon: '🎤',
       gen: () => {
-        const audio = new Audio('/assets/Live crowd.mp3');
+        const audio = new Audio('/assets/live_crowd.mp3');
         audio.loop = true;
         audio.play().catch(() => {});
         return { stop: () => { audio.pause(); audio.currentTime = 0; } };
@@ -861,7 +874,7 @@ function SoundsScreen({ onBack }) {
     {
       id: 'lofi', label: 'lo-fi', icon: '🎵',
       gen: () => {
-        const audio = new Audio('/assets/LOFI.mp3');
+        const audio = new Audio('/assets/lofi_compressed.mp3');
         audio.loop = true;
         audio.play().catch(() => {});
         return { stop: () => { audio.pause(); audio.currentTime = 0; } };
@@ -899,7 +912,6 @@ function SoundsScreen({ onBack }) {
       delete nodes.current[sound.id];
       setActive(prev => { const n = {...prev}; delete n[sound.id]; return n; });
     } else {
-      // Only heartbeat needs the Web Audio context
       const ctx = sound.id === 'heart' ? getCtx() : null;
       nodes.current[sound.id] = sound.gen(ctx);
       setActive(prev => ({ ...prev, [sound.id]: true }));
@@ -930,12 +942,10 @@ function SoundsScreen({ onBack }) {
 }
 
 // ─── GAME ────────────────────────────────────────────────────────────────────
-// FIX 7: slow start, duration-based speed
 function GameScreen({ onBack }) {
   const canvasRef = useRef(null);
   const [gameState, setGameState] = useState('idle');
   const [setlist, setSetlist] = useState([]);
-  // fallDuration in seconds, starts at 5, min 1.8
   const stRef = useRef({ notes: [], catcher: 0, fallDuration: 5, misses: 0, caught: [], frame: 0, flashTimer: 0, flashText: '' });
   const animRef = useRef(null);
   const [shuffledSongs] = useState(() => shuffle(ALL_SONGS));
@@ -964,12 +974,10 @@ function GameScreen({ onBack }) {
       ctx.strokeStyle = '#1a1a2e'; ctx.lineWidth = 1;
       for (let y=0; y<H; y+=30) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
 
-      // Spawn interval decreases gradually
       const spawnEvery = Math.max(70 - Math.floor(st.caught.length / 3) * 2, 25);
       if (st.frame % spawnEvery === 0) {
         const song = shuffledSongs[st.frame % shuffledSongs.length];
         const nw = Math.min(song.length * 6 + 24, W - 20);
-        // FIX 7: speed derived from fallDuration
         const speed = H / (st.fallDuration * FPS);
         st.notes.push({ x: Math.random() * (W - nw), y: -30, w: nw, song, speed });
       }
@@ -987,7 +995,6 @@ function GameScreen({ onBack }) {
             st.caught.push(note.song);
             st.flashText = '¡atrapada! ✨';
             st.flashTimer = 45;
-            // Every 5 catches, speed up by reducing duration
             if (st.caught.length % 5 === 0) {
               st.fallDuration = Math.max(st.fallDuration - 0.25, 1.8);
             }
@@ -1010,7 +1017,6 @@ function GameScreen({ onBack }) {
       ctx.fillStyle = C.yellow; ctx.font = 'bold 11px "Courier New"';
       ctx.fillText(`${st.caught.length} canciones`, W - 100, 22);
 
-      // Flash "¡atrapada! ✨" on catch
       if (st.flashTimer > 0) {
         ctx.save();
         ctx.globalAlpha = Math.min(1, st.flashTimer / 15);
@@ -1317,7 +1323,6 @@ export default function App() {
 
   if (!user) {
     return (
-      // FIX 3: starfield on onboarding too
       <div style={{ position: 'relative', minHeight: '100dvh' }}>
         <Starfield />
         <OnboardingScreen onDone={(u) => { setUser(u); setScreen('home'); }} />
@@ -1343,7 +1348,6 @@ export default function App() {
   };
 
   return (
-    // FIX 3: global starfield behind every screen
     <div style={{ position: 'relative', minHeight: '100dvh' }}>
       <Starfield />
       {renderScreen()}
