@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(ls:*)",
+      "Bash(cp ~/Downloads/openart-video_1774737567752_c2f278ee.mp4 ~/Desktop/frida-amiel-app/public/sprites/frida_idle.mp4)",
+      "Bash(cp ~/Downloads/openart-video_1774738116201_c9fa9d07.mp4 ~/Desktop/frida-amiel-app/public/sprites/amiel_idle.mp4)",
+      "Bash(cp ~/Downloads/1.png ~/Desktop/frida-amiel-app/public/assets/tent.png)",
+      "Bash(cp ~/Downloads/1b34dfc0a9bf5563e0f960a24b6862db.gif ~/Desktop/frida-amiel-app/public/assets/fire.gif)",
+      "Bash(cp ~/Downloads/2.png ~/Desktop/frida-amiel-app/public/assets/mushroom.png)",
+      "Bash(cp ~/Downloads/1774743619630_image_png.png ~/Desktop/frida-amiel-app/public/assets/moon.png)",
+      "Bash(cp ~/Downloads/0328.mp4 ~/Desktop/frida-amiel-app/public/sprites/frida_idle.mp4)",
+      "Bash(unzip -l ~/Downloads/1774743619630_image.png.zip)",
+      "Bash(unzip -l ~/Downloads/drive-download-20260328T163430Z-3-001.zip)",
+      "Bash(# Copy what we CAN resolve: 1.png→tent, 2.png→mushroom, image.gif→fire\ncp /tmp/img_extract/1.png ~/Desktop/frida-amiel-app/public/assets/tent.png\ncp /tmp/img_extract/2.png ~/Desktop/frida-amiel-app/public/assets/mushroom.png\ncp /tmp/img_extract/3.png ~/Desktop/frida-amiel-app/public/assets/moon.png\ncp ~/Downloads/image.gif ~/Desktop/frida-amiel-app/public/assets/fire.gif\necho \"Done. Checking sizes:\"\nls -lh ~/Desktop/frida-amiel-app/public/assets/\necho \"---\"\necho \"Existing sprites:\"\nls -lh ~/Desktop/frida-amiel-app/public/sprites/)",
+      "Read(//Users/fridaortizcarrizo/Desktop/**)",
+      "Read(//Users/fridaortizcarrizo/Documents/**)"
+    ]
+  }
+}
